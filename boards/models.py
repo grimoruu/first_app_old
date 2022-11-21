@@ -10,3 +10,10 @@ class Board(Base):
     title = Column(String(20), nullable=False)
     date_created = Column(DateTime)
     
+class test(Base):
+    __tablename__ = 'board'
+    
+    id = Column(Integer, primary_key=True, unique = True)
+    title = Column(String(20), nullable=False)
+    date_created = Column(DateTime)
+    
