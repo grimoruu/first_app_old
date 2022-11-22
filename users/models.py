@@ -2,6 +2,12 @@ from sqlalchemy import Column, String, Integer, DateTime, Boolean, ForeignKey, T
 from core.db import Base
 from sqlalchemy.orm import relationship
 
+user_board_association = Table(
+    'users_boards', Base.metadata,
+    Column('user_id', Integer, ForeignKey('users.id')),
+    Column('board_id', Integer, ForeignKey('boards.id'))
+)
+
 class Users(Base):
     __tablename__ = 'users'
     
@@ -11,6 +17,8 @@ class Users(Base):
     email = Column(String, nullable=False, unique = True)
     date_joined = Column(DateTime)
     is_active = Column(Boolean, default=False)
+    boards = relationship('Board', secondary=user_board_association)
+    
     
     def __init__(self, username, password, email, date_joined, is_active):
         self.username = username
